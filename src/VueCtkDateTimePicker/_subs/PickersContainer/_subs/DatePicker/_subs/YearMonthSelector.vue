@@ -3,7 +3,47 @@
     class="year-month-selector flex flex-direction-column"
     :class="{'dark': dark}"
   >
-    <div class="flex justify-content-right">
+    <div class="flex header-controls">
+      <div class="year-controls">
+        <div
+          class="year-control"
+          @click="prevYears"
+        >
+          <svg
+            width="512"
+            height="512"
+            viewBox="0 0 512 512"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M338 419L175 256L338 93"
+              stroke="black"
+              stroke-width="24"
+              stroke-linecap="round"
+            />
+          </svg>
+        </div>
+        <div
+          class="year-control"
+          @click="nextYears"
+        >
+          <svg
+            width="512"
+            height="512"
+            viewBox="0 0 512 512"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M175 419L338 256L175 93"
+              stroke="black"
+              stroke-width="24"
+              stroke-linecap="round"
+            />
+          </svg>
+        </div>
+      </div>
       <CustomButton
         :color="dark ? '#757575' : '#424242'"
         :dark="dark"
@@ -105,6 +145,14 @@
       },
       selectYear (year) {
         this.$emit('input', { month: this.currentMonth, year: year })
+      },
+      prevYears () {
+        const firstYear = this.years[0]
+        this.years = ArrayRange(firstYear - 7, firstYear + 7)
+      },
+      nextYears () {
+        const lastYear = this.years[this.years.length - 1]
+        this.years = ArrayRange(lastYear - 7, lastYear + 7)
       }
     }
   }
@@ -126,6 +174,23 @@
     }
     .month-button {
       text-transform: capitalize;
+    }
+  }
+  .header-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .year-controls {
+    display: flex;
+  }
+  .year-control {
+    cursor: pointer;
+    width: 14px;
+    height: 14px;
+    svg {
+      width: 100%;
+      height: 100%;
     }
   }
 </style>
