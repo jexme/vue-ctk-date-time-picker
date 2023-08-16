@@ -4,7 +4,7 @@
     :class="{'dark': dark}"
   >
     <div class="flex header-controls">
-      <div class="year-controls">
+      <div v-if="!isMonthMode" class="year-controls">
         <div
           class="year-control"
           @click="prevYears"
